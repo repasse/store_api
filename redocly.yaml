@@ -1,0 +1,8 @@
+
+apiTitle: Store Sites
+splitSpec: true
+codeSamples: true
+swaggerUI: true
+travis: true
+repo: repasse/store_api
+oasVersion: 3.0.0
