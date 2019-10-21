@@ -13,5 +13,4 @@ deploy:
     on:
       all_branches: true
       condition: '"$TRAVIS_BRANCH" != "master" && "$TRAVIS_BRANCH" != "gh-pages"'
-env:
-  - GH_TOKEN=56ae98143598c509ab25dafa6e800f0514d2d9e6 
+ 
