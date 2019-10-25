@@ -12,7 +12,7 @@
       "url": "https://www.repasses.com.br/wp-content/themes/2018_repasse_site/assets/images/logo-repasse-white.png",
       "backgroundColor": "#2B4F83"
     },
-    "description": "\nEsta é a API para visualização / cadastro de anúncios da plataforma Repasse\n# Introdução\nEsta especificação visa auxiliar programadores a integrarem seus sistemas com a plataforma Repasse.\n"
+    "description": "\nEsta é a API para visualização / cadastro de anúncios da plataforma Repasse\n# Introdução\nEsta especificação visa auxiliar programadores a integrarem seus sistemas com a plataforma Repasse.\n# Jornada do anúncio\nSiga estes passos para publicar um novo anúncio\n1. xdgfsdgf\n1. asfdafsdfsd\n"
   },
   "tags": [
     {
@@ -34,8 +34,8 @@
         "tags": [
           "Car"
         ],
-        "summary": "Cria um novo anúncio",
-        "description": "Novos anúncios são criados por este endpoint",
+        "summary": "Cria um novo Carro",
+        "description": "Novos carros são criados por este endpoint",
         "operationId": "createCar",
         "parameters": [
           {
@@ -95,33 +95,33 @@
       }
     },
     "/store_site/{store_id}/car/{car_id}": {
+      "parameters": [
+        {
+          "name": "store_id",
+          "in": "path",
+          "description": "Código da loja",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        },
+        {
+          "name": "car_id",
+          "in": "path",
+          "description": "Código da carro",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
       "put": {
         "tags": [
           "Car"
         ],
-        "summary": "Edita anúncio já publicado",
-        "description": "Edição de anúncio",
+        "summary": "Edita carro já publicado",
+        "description": "Edição de carro",
         "operationId": "editCar",
-        "parameters": [
-          {
-            "name": "store_id",
-            "in": "path",
-            "description": "Código da loja",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "name": "car_id",
-            "in": "path",
-            "description": "Código da carro",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -173,7 +173,7 @@
         "tags": [
           "Car"
         ],
-        "summary": "Envia uma imagem referente a um anúncio",
+        "summary": "Envia uma imagem referente a um carro",
         "operationId": "saveCarPhoto",
         "parameters": [
           {
@@ -192,7 +192,7 @@
             "schema": {
               "type": "integer"
             },
-            "description": "Id do anúncio"
+            "description": "Id do carro"
           }
         ],
         "requestBody": {
@@ -270,7 +270,7 @@
         "tags": [
           "Car"
         ],
-        "summary": "Remove a imagem do anúncio",
+        "summary": "Remove a imagem do carro",
         "operationId": "removeImage",
         "parameters": [
           {
@@ -289,7 +289,7 @@
             "schema": {
               "type": "integer"
             },
-            "description": "Id do anúncio"
+            "description": "Id do carro"
           },
           {
             "name": "image_id",
@@ -364,13 +364,63 @@
           }
         }
       }
+    },
+    "/store_site/{store_id}/car/{car_id}/remove": {
+      "parameters": [
+        {
+          "name": "store_id",
+          "in": "path",
+          "description": "Código da loja",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        },
+        {
+          "name": "car_id",
+          "in": "path",
+          "description": "Código da carro",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
+      "post": {
+        "tags": [
+          "Car"
+        ],
+        "summary": "Solicita a remoção de um carro da plataforma",
+        "description": "Permite encerrar a venda de um carro, tanto removendo como marcando como vendido",
+        "operationId": "removeCar",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RemoveCar"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Solicitação efetuada com sucesso"
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
       "Car": {
         "type": "object",
-        "description": "Dados para um novo anúncio",
+        "description": "Dados para um novo carro",
         "properties": {
           "color_id": {
             "type": "integer",
@@ -433,7 +483,7 @@
       },
       "EditCar": {
         "type": "object",
-        "description": "Dados para um editar um anúncio",
+        "description": "Dados para um editar um carro",
         "properties": {
           "color_id": {
             "type": "integer",
@@ -477,6 +527,23 @@
           "price",
           "km",
           "optionals"
+        ]
+      },
+      "RemoveCar": {
+        "type": "object",
+        "description": "Dados para remover um carro da plataforma",
+        "properties": {
+          "reason_id": {
+            "type": "integer",
+            "description": "Motivo da exclusão 1- Vendido pela plataforma 2- Vendido fora da plataforma 3- Somente excluir"
+          },
+          "buyer_id": {
+            "type": "integer",
+            "description": "Para anúncios excluídos motivo 1 você pode informar a id do comprador"
+          }
+        },
+        "required": [
+          "reason_id"
         ]
       }
     },

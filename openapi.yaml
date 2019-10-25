@@ -14,6 +14,10 @@ info:
     Esta é a API para visualização / cadastro de anúncios da plataforma Repasse
     # Introdução
     Esta especificação visa auxiliar programadores a integrarem seus sistemas com a plataforma Repasse.
+    # Jornada do anúncio
+    Siga estes passos para publicar um novo anúncio
+    1. xdgfsdgf
+    1. asfdafsdfsd
 tags:
   - name: Car
     description: Operações referentes ao cadastro e edição de anúncios
@@ -25,8 +29,8 @@ paths:
     post:
       tags:
         - Car
-      summary: Cria um novo anúncio
-      description: Novos anúncios são criados por este endpoint
+      summary: Cria um novo Carro
+      description: Novos carros são criados por este endpoint
       operationId: createCar
       parameters:
         - name: store_id
@@ -63,25 +67,25 @@ paths:
         '400':
           description: Um dos campos obrigatórios não foi preenchido
   '/store_site/{store_id}/car/{car_id}':
+    parameters:
+      - name: store_id
+        in: path
+        description: Código da loja
+        required: true
+        schema:
+          type: integer
+      - name: car_id
+        in: path
+        description: Código da carro
+        required: true
+        schema:
+          type: integer
     put:
       tags:
         - Car
-      summary: Edita anúncio já publicado
-      description: Edição de anúncio
+      summary: Edita carro já publicado
+      description: Edição de carro
       operationId: editCar
-      parameters:
-        - name: store_id
-          in: path
-          description: Código da loja
-          required: true
-          schema:
-            type: integer
-        - name: car_id
-          in: path
-          description: Código da carro
-          required: true
-          schema:
-            type: integer
       requestBody:
         content:
           application/json:
@@ -113,7 +117,7 @@ paths:
     post:
       tags:
         - Car
-      summary: Envia uma imagem referente a um anúncio
+      summary: Envia uma imagem referente a um carro
       operationId: saveCarPhoto
       parameters:
         - name: store_id
@@ -127,7 +131,7 @@ paths:
           required: true
           schema:
             type: integer
-          description: Id do anúncio
+          description: Id do carro
       requestBody:
         content:
           multipart/form-data:
@@ -175,7 +179,7 @@ paths:
     delete:
       tags:
         - Car
-      summary: Remove a imagem do anúncio
+      summary: Remove a imagem do carro
       operationId: removeImage
       parameters:
         - name: store_id
@@ -189,7 +193,7 @@ paths:
           required: true
           schema:
             type: integer
-          description: Id do anúncio
+          description: Id do carro
         - name: image_id
           in: path
           required: true
@@ -234,11 +238,42 @@ paths:
           description: A quantidade de fotos obrigatórias (atualmente entre 4 e 10) está incorreta
         '422':
           description: Falta um parâmetro obrigatório (loja/carro)
+  '/store_site/{store_id}/car/{car_id}/remove':
+    parameters:
+      - name: store_id
+        in: path
+        description: Código da loja
+        required: true
+        schema:
+          type: integer
+      - name: car_id
+        in: path
+        description: Código da carro
+        required: true
+        schema:
+          type: integer
+    post:
+      tags:
+        - Car
+      summary: Solicita a remoção de um carro da plataforma
+      description: 'Permite encerrar a venda de um carro, tanto removendo como marcando como vendido'
+      operationId: removeCar
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RemoveCar'
+        required: true
+      security:
+        - api_key: []
+      responses:
+        '200':
+          description: Solicitação efetuada com sucesso
 components:
   schemas:
     Car:
       type: object
-      description: Dados para um novo anúncio
+      description: Dados para um novo carro
       properties:
         color_id:
           type: integer
@@ -286,7 +321,7 @@ components:
         - optionals
     EditCar:
       type: object
-      description: Dados para um editar um anúncio
+      description: Dados para um editar um carro
       properties:
         color_id:
           type: integer
@@ -320,6 +355,18 @@ components:
         - price
         - km
         - optionals
+    RemoveCar:
+      type: object
+      description: Dados para remover um carro da plataforma
+      properties:
+        reason_id:
+          type: integer
+          description: Motivo da exclusão 1- Vendido pela plataforma 2- Vendido fora da plataforma 3- Somente excluir
+        buyer_id:
+          type: integer
+          description: Para anúncios excluídos motivo 1 você pode informar a id do comprador
+      required:
+        - reason_id
   securitySchemes:
     api_key:
       type: apiKey
