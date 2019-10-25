@@ -1,7 +1,7 @@
 delete:
   tags:
     - Car
-  summary: Remove a imagem do anúncio
+  summary: Remove a imagem do carro
   operationId: removeImage
   parameters:
     - name: store_id
@@ -15,7 +15,7 @@ delete:
       required: true
       schema:
         type: integer
-      description: Id do anúncio
+      description: Id do carro
     - name: image_id
       in: path
       required: true

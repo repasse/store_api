@@ -1,8 +1,8 @@
 post:
   tags:
     - Car
-  summary: Cria um novo anúncio
-  description: Novos anúncios são criados por este endpoint
+  summary: Cria um novo Carro
+  description: Novos carros são criados por este endpoint
   operationId: createCar
   parameters:
       - name: store_id

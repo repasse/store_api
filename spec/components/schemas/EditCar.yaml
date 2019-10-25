@@ -1,5 +1,5 @@
 type: object
-description: Dados para um editar um anúncio
+description: Dados para um editar um carro
 properties:
   color_id:
     type: integer

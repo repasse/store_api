@@ -1,7 +1,7 @@
 post:
   tags:
     - Car
-  summary: Envia uma imagem referente a um anúncio
+  summary: Envia uma imagem referente a um carro
   operationId: saveCarPhoto
   parameters:
     - name: store_id
@@ -15,7 +15,7 @@ post:
       required: true
       schema:
         type: integer
-      description: Id do anúncio
+      description: Id do carro
   requestBody:
     content:
       multipart/form-data:

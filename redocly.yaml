@@ -1,7 +1,7 @@
 
 apiTitle: Store Sites
 splitSpec: true
-codeSamples: true
+codeSamples: false
 swaggerUI: true
 travis: true
 repo: repasse/store_api

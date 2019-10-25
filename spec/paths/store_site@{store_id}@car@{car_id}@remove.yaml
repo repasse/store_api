@@ -1,0 +1,30 @@
+parameters:
+  - name: store_id
+    in: path
+    description: Código da loja
+    required: true
+    schema:
+      type: integer
+  - name: car_id
+    in: path
+    description: Código da carro
+    required: true
+    schema:
+      type: integer
+post:
+  tags:
+    - Car
+  summary: Solicita a remoção de um carro da plataforma
+  description: Permite encerrar a venda de um carro, tanto removendo como marcando como vendido
+  operationId: removeCar
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: '#/components/schemas/RemoveCar'
+    required: true
+  security:
+    - api_key: []
+  responses:
+    200:
+      description: Solicitação efetuada com sucesso

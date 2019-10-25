@@ -1,0 +1,11 @@
+type: object
+description: Dados para remover um carro da plataforma
+properties:
+  reason_id:
+    type: integer
+    description: Motivo da exclusão 1- Vendido pela plataforma 2- Vendido fora da plataforma 3- Somente excluir
+  buyer_id:
+    type: integer
+    description: Para anúncios excluídos motivo 1 você pode informar a id do comprador
+required:
+  - reason_id
