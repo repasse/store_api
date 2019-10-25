@@ -20,10 +20,6 @@ info:
 
 
 tags:
-  - name: Echo
-    description: Example echo operations
-  - name: User
-    description: Operations about user
   - name: Car
     description: Operações referentes ao cadastro e edição de anúncios
 servers:
