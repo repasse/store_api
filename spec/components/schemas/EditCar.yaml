@@ -1,0 +1,35 @@
+type: object
+description: Dados para um editar um anúncio
+properties:
+  color_id:
+    type: integer
+    description: Código da Cor
+  doors:
+    type: integer
+    description: Quantidade de portas (padrão 4)
+  eixos:
+    type: string
+    description: "Informação referente aos eixos (exclusivo para caminhões)"
+  observation:
+    type: string
+    description: Observações
+  cost:
+    type: number
+    description: Preço de custo do carro
+  price:
+    type: number
+    description: 'Valor do carro'
+  km:
+    type: integer
+    description: Quilometragem do carro
+  optionals:
+    description: Opcionais do carro
+    type: array
+    items:
+      type: integer
+required:
+  - color_id
+  - observation
+  - price
+  - km
+  - optionals

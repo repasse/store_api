@@ -1,0 +1,33 @@
+delete:
+  tags:
+    - Car
+  summary: Remove a imagem do anúncio
+  operationId: removeImage
+  parameters:
+    - name: store_id
+      in: path
+      description: Código da loja
+      required: true
+      schema:
+        type: integer
+    - name: car_id
+      in: path
+      required: true
+      schema:
+        type: integer
+      description: Id do anúncio
+    - name: image_id
+      in: path
+      required: true
+      schema:
+        type: integer
+      description: Id da imagem
+  security:
+    - api_key: []
+  responses:
+    200:
+      description: Imagem removida com sucesso
+    404:
+      description: Imagem não encontrada
+    422:
+      description: "Um dos parâmetros (loja/carro/imagem) não foi informado"

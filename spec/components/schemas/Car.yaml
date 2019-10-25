@@ -1,0 +1,47 @@
+type: object
+description: Dados para um novo anúncio
+properties:
+  color_id:
+    type: integer
+    description: Código da Cor
+  doors:
+    type: integer
+    description: Quantidade de portas (padrão 4)
+  eixos:
+    type: string
+    description: "Informação referente aos eixos (exclusivo para caminhões)"
+  brand_id:
+    type: integer
+    description: Código da marca
+  fipe_id:
+    type: integer
+    description: Código da tabela Fipe
+  year:
+    type: integer
+    description: "Ano de fabricação do veículo"
+  observation:
+    type: string
+    description: Observações
+  cost:
+    type: number
+    description: Preço de custo do carro
+  price:
+    type: number
+    description: 'Valor do carro'
+  km:
+    type: integer
+    description: Quilometragem do carro
+  optionals:
+    description: Opcionais do carro
+    type: array
+    items:
+      type: integer
+required:
+  - color_id
+  - brand_id
+  - fipe_id
+  - year
+  - observation
+  - price
+  - km
+  - optionals

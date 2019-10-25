@@ -1,0 +1,47 @@
+put:
+  tags:
+    - Car
+  summary: Edita anúncio já publicado
+  description: Edição de anúncio
+  operationId: editCar
+  parameters:
+    - name: store_id
+      in: path
+      description: Código da loja
+      required: true
+      schema:
+        type: integer
+    - name: car_id
+      in: path
+      description: Código da carro
+      required: true
+      schema:
+        type: integer
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: '#/components/schemas/EditCar'
+    required: true
+  security:
+    - api_key: []
+
+  responses:
+    200:
+      description: Carro editado com sucesso
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              car_id:
+                type: integer
+                description: ID do carro (anúncio)
+              msg:
+                type: string
+                description: Mensagem informativa
+          example:
+            car_id: 515
+            msg: 'Anúncio cadastrado com sucesso'
+    400:
+      description: Um dos campos obrigatórios não foi preenchido

@@ -1,0 +1,29 @@
+post:
+  tags:
+    - Car
+  summary: Publica o carro na plataforma
+  description: Envia o carro para publicação na plataforma ele vai ser moderado pelo nosso sistema e, caso liberado, estará apto a receber negociações e propostas
+  operationId: publishCar
+  parameters:
+    - name: store_id
+      in: path
+      description: Código da loja
+      required: true
+      schema:
+        type: integer
+    - name: car_id
+      in: path
+      required: true
+      schema:
+        type: integer
+      description: Id do anúncio
+  security:
+    - api_key: []
+
+  responses:
+    200:
+      description: Enviado com sucesso, o resultado (em análise/publicado/exclusivo) vem no corpo deste resultado
+    409:
+      description: A quantidade de fotos obrigatórias (atualmente entre 4 e 10) está incorreta
+    422:
+      description: "Falta um parâmetro obrigatório (loja/carro)"

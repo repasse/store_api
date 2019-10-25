@@ -1,0 +1,62 @@
+post:
+  tags:
+    - Car
+  summary: Envia uma imagem referente a um anúncio
+  operationId: saveCarPhoto
+  parameters:
+    - name: store_id
+      in: path
+      description: Código da loja
+      required: true
+      schema:
+        type: integer
+    - name: car_id
+      in: path
+      required: true
+      schema:
+        type: integer
+      description: Id do anúncio
+  requestBody:
+    content:
+      multipart/form-data:
+        schema:
+          type: object
+          properties:
+            filename:
+              type: string
+              format: binary
+          required:
+            - filename
+  security:
+    - api_key: []
+
+  responses:
+    200:
+      description: Imagem enviada com sucesso
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                description: "resultado da operação (true or false)"
+              data:
+                type: object
+                description: "Dados da operação"
+                properties:
+                  id:
+                    type: integer
+                    description: Id da imagem enviada
+                  filename:
+                    type: string
+                    description: "Nome do arquivo thumbnail para ser usado no frontend"
+          example:
+            success: true
+            data:
+              id: 10
+              filename: "23103210321321.png"
+    400:
+      description: Bad request, falta algum campo obrigatório
+    404:
+      description: Anúncio não existe
