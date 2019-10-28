@@ -3,6 +3,7 @@ description: Dados para remover um carro da plataforma
 properties:
   reason_id:
     type: integer
+    enum: [1,2,3]
     description: Motivo da exclusão 1- Vendido pela plataforma 2- Vendido fora da plataforma 3- Somente excluir
   buyer_id:
     type: integer
