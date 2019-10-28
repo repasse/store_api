@@ -35,8 +35,8 @@ get:
               success:
                 type: boolean
                 description: resultado da requisição
-            data:
-              type: array
-              description: Dados da tabela Fipe
-              items:
-                $ref: '#/components/schemas/Fipe'
+              data:
+                type: array
+                description: Dados da tabela Fipe
+                items:
+                  $ref: '#/components/schemas/Fipe'

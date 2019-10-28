@@ -26,7 +26,7 @@ info:
     ## Autenticação:
 
     Após obter sua credencial você deve informá-la em suas requisições usando a chave Api-Key no seu header
-       
+
 
 
     ## Jornada do anúncio
