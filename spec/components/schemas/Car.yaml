@@ -1,6 +1,9 @@
 type: object
 description: Dados para um novo carro
 properties:
+  user_id:
+    type: integer
+    description: Código do vendedor, obtido no endpoint populate
   color_id:
     type: integer
     description: Código da Cor
@@ -37,6 +40,7 @@ properties:
     items:
       type: integer
 required:
+  - user_id
   - color_id
   - brand_id
   - fipe_id
