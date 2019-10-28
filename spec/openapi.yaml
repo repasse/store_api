@@ -49,5 +49,6 @@ tags:
   - name: Car
     description: Operações referentes ao cadastro e edição de anúncios
 servers:
-  - url: 'http://beta.aplicativorepasse.com.br/api'
-  - url: 'http://app.repasse/api'
+  - url: 'https://beta.aplicativorepasse.com.br/api'
+  - url: 'https://srv.aplicativorepasse.com.br/api'
+  
