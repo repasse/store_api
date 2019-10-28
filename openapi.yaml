@@ -14,10 +14,17 @@ info:
     Esta é a API para visualização / cadastro de anúncios da plataforma Repasse
     # Introdução
     Esta especificação visa auxiliar programadores a integrarem seus sistemas com a plataforma Repasse.
-    # Jornada do anúncio
-    Siga estes passos para publicar um novo anúncio
+    ## Ambientes
+    Oferecemos o ambiente de testes para envio de anúncios até a homologação, o endereço da api está em http://beta.aplicativorepasse.com.br. O ambiente de produção (apenas para clientes homologados estão em https://srv.aplicativorepasse.com.br)
+    Para obter uma credencial de testes e de produção contate o depto comercial.
+    ## Autenticação:
+    Após obter sua credencial você deve informá-la em suas requisições usando a chave Api-Key no seu header
+
+
+    ## Jornada do anúncio
+    Siga estes passos para publicar um novo anúncio:
     1. Obtenha a lista auxiliar (marcas/modelos/anos/opcionais/vendedores)
-    1. Obtenha a fipe do anúncio
+    1. Com a marca e o ano desejado obtenha a fipe do anúncio
     1. Com os dados das listas auxiliares envie o cadastro do anúncio
     1. Envie entre 4 e 10 fotos
     1. Solicite a publicação do anúncio
@@ -288,12 +295,16 @@ paths:
         - name: car_type
           in: path
           required: true
-          description: Tipo de veículo
+          description: 'Tipo de veículo (0=carro, 5=caminhão, 8=moto)'
           schema:
             type: integer
+            enum:
+              - 0
+              - 5
+              - 8
       responses:
         '200':
-          description: Dados da operação
+          description: Dados da requisição
           content:
             application/json:
               schema:
@@ -301,26 +312,96 @@ paths:
                 properties:
                   success:
                     type: boolean
-                    description: Resultado da operação
+                    description: Resultado da requisição
                   data:
                     type: object
                     properties:
                       brands:
+                        description: Listagem de marcas
                         type: array
                         items:
                           $ref: '#/components/schemas/Brand'
                       models:
+                        description: Listagem de modelos (que será utilizada para obter a fipe)
                         type: array
                         items:
                           $ref: '#/components/schemas/Modelo'
+                      colors:
+                        description: ID da cor (que será usado no cadastro de anúncio)
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Color'
+                      doors:
+                        type: array
+                        description: 'Portas de um carro (2,3,4,5) que será usado no cadastro de anúncio'
+                        items:
+                          type: integer
+                      eixos:
+                        description: Eixos de caminhão que será usado no cadastro de anúncio
+                        type: array
+                        items:
+                          type: string
+                          description: Eixos de caminhão
                       optionals:
+                        description: ID do opcional do anúncio (que será usado no cadastro de anúncio)
                         type: array
                         items:
                           $ref: '#/components/schemas/Optional'
+                      years:
+                        description: Ano para utilizar na pesquisa da fipe
+                        type: array
+                        items:
+                          anyOf:
+                            - type: integer
+                            - type: string
                       sellers:
+                        description: ID dos vendedores da sua loja que será usado no cadastro de anúncio
                         type: array
                         items:
                           $ref: '#/components/schemas/Seller'
+  '/store_site/{store_id}/populate/model/{brand_id}/{year}':
+    get:
+      tags:
+        - Auxiliares
+      summary: Obtem a lista de modelos para cadastro de anúncios
+      operationId: populateModels
+      parameters:
+        - name: store_id
+          in: path
+          required: true
+          description: Id do cliente
+          schema:
+            type: integer
+        - name: brand_id
+          in: path
+          required: true
+          description: 'Marca do veículo ( obtido em populate/{car_type} )'
+          schema:
+            type: integer
+        - name: year
+          in: path
+          required: true
+          description: Ano do Modelo do veículo (1984/2020) ou Zero KM
+          schema:
+            oneOf:
+              - type: integer
+              - type: string
+      responses:
+        '200':
+          description: Dados da requisição
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: resultado da requisição
+                  data:
+                    type: array
+                    description: Dados da tabela Fipe
+                    items:
+                      $ref: '#/components/schemas/Fipe'
 components:
   schemas:
     Brand:
@@ -384,6 +465,16 @@ components:
         - price
         - km
         - optionals
+    Color:
+      type: object
+      description: Cores de um carro
+      properties:
+        id:
+          type: integer
+          description: ID da cor (que será usado no cadastro de anúncio)
+        name:
+          type: string
+          description: Nome da cor
     EditCar:
       type: object
       description: Dados para um editar um carro
@@ -420,6 +511,34 @@ components:
         - price
         - km
         - optionals
+    Fipe:
+      type: object
+      description: Dados da fipe de um anúncio
+      properties:
+        id:
+          type: integer
+          description: ID da fipe (que será usado no cadastro de anúncio)
+        modelo_id:
+          type: integer
+          description: Código do modelo
+        brand_id:
+          type: integer
+          description: ID da marca
+        year:
+          type: string
+          description: Ano do modelo
+        fuel:
+          type: string
+          description: Combustível do modelo
+        code:
+          type: string
+          description: 'Código da Fipe, o mesmo apresentado no site da Fipe'
+        price:
+          type: number
+          description: Valor atual do veículo na tabela fipe
+        type:
+          type: string
+          description: 'Tipo de veículo (0=carro, 5=caminhão, 8=moto)'
     Modelo:
       type: object
       description: Objeto com o tipo de carro
@@ -442,7 +561,7 @@ components:
       properties:
         id:
           type: integer
-          description: ID do opcional do anúncio
+          description: ID do opcional do anúncio (que será usado no cadastro de anúncio)
         name:
           type: string
           description: Nome do item Opcional
