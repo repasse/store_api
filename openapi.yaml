@@ -16,8 +16,11 @@ info:
     Esta especificação visa auxiliar programadores a integrarem seus sistemas com a plataforma Repasse.
     # Jornada do anúncio
     Siga estes passos para publicar um novo anúncio
-    1. xdgfsdgf
-    1. asfdafsdfsd
+    1. Obtenha a lista auxiliar (marcas/modelos/anos/opcionais/vendedores)
+    1. Obtenha a fipe do anúncio
+    1. Com os dados das listas auxiliares envie o cadastro do anúncio
+    1. Envie entre 4 e 10 fotos
+    1. Solicite a publicação do anúncio
 tags:
   - name: Car
     description: Operações referentes ao cadastro e edição de anúncios
@@ -269,8 +272,70 @@ paths:
       responses:
         '200':
           description: Solicitação efetuada com sucesso
+  '/store_site/{store_id}/populate/{car_type}':
+    get:
+      tags:
+        - Auxiliares
+      summary: Obtem a lista inicial para cadastro de anúncios (e também para pesquisar anúncios)
+      operationId: populateCar
+      parameters:
+        - name: store_id
+          in: path
+          required: true
+          description: id do cliente
+          schema:
+            type: integer
+        - name: car_type
+          in: path
+          required: true
+          description: Tipo de veículo
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Dados da operação
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Resultado da operação
+                  data:
+                    type: object
+                    properties:
+                      brands:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Brand'
+                      models:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Modelo'
+                      optionals:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Optional'
+                      sellers:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Seller'
 components:
   schemas:
+    Brand:
+      type: object
+      description: Marca de um carro
+      properties:
+        id:
+          type: integer
+          description: ID da marca
+        name:
+          type: string
+          description: Nome da marca
+        type:
+          type: integer
+          description: Tipo do carro
     Car:
       type: object
       description: Dados para um novo carro
@@ -355,6 +420,38 @@ components:
         - price
         - km
         - optionals
+    Modelo:
+      type: object
+      description: Objeto com o tipo de carro
+      properties:
+        id:
+          type: integer
+          description: Id do modelo
+        name:
+          type: string
+          description: Nome do modelo
+        car_type:
+          type: integer
+          description: Tipo do veículo
+        brand_id:
+          type: integer
+          description: Id da marca
+    Optional:
+      type: object
+      description: Opcional de um carro
+      properties:
+        id:
+          type: integer
+          description: ID do opcional do anúncio
+        name:
+          type: string
+          description: Nome do item Opcional
+        description:
+          type: string
+          description: Descrição do item opcional
+        type:
+          type: integer
+          description: Tipo do veículo
     RemoveCar:
       type: object
       description: Dados para remover um carro da plataforma
@@ -367,6 +464,16 @@ components:
           description: Para anúncios excluídos motivo 1 você pode informar a id do comprador
       required:
         - reason_id
+    Seller:
+      type: object
+      description: Dados de um vendedor
+      properties:
+        id:
+          type: integer
+          description: ID do vendedor
+        name:
+          type: string
+          description: Nome do vendedor
   securitySchemes:
     api_key:
       type: apiKey
