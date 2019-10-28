@@ -24,6 +24,8 @@ get:
         oneOf:
           - type: integer
           - type: string
+  security:
+    - api_key: []
   responses:
     200:
       description: Dados da requisição
