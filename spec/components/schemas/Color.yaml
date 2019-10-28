@@ -1,0 +1,9 @@
+type: object
+description: Cores de um carro
+properties:
+  id:
+    type: integer
+    description: ID da cor (que será usado no cadastro de anúncio)
+  name:
+    type: string
+    description: Nome da cor

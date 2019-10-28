@@ -13,12 +13,13 @@ get:
     - name: car_type
       in: path
       required: true
-      description: Tipo de veículo
+      description: Tipo de veículo (0=carro, 5=caminhão, 8=moto)
       schema:
         type: integer
+        enum: [0,5,8]
   responses:
     200:
-      description: Dados da operação
+      description: Dados da requisição
       content:
         application/json:
           schema:
@@ -26,23 +27,50 @@ get:
             properties:
               success:
                 type: boolean
-                description: Resultado da operação
+                description: Resultado da requisição
               data:
                 type: object
                 properties:
                   brands:
+                    description: Listagem de marcas
                     type: array
                     items:
                       $ref: '#/components/schemas/Brand'
                   models:
+                    description: Listagem de modelos (que será utilizada para obter a fipe)
                     type: array
                     items:
                       $ref: '#/components/schemas/Modelo'
+                  colors:
+                    description: ID da cor (que será usado no cadastro de anúncio)
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Color'
+                  doors:
+                    type: array
+                    description: Portas de um carro (2,3,4,5) que será usado no cadastro de anúncio
+                    items:
+                      type: integer
+                  eixos:
+                    description: Eixos de caminhão que será usado no cadastro de anúncio
+                    type: array
+                    items:
+                      type: string
+                      description: Eixos de caminhão
                   optionals:
+                    description: ID do opcional do anúncio (que será usado no cadastro de anúncio)
                     type: array
                     items:
                       $ref: '#/components/schemas/Optional'
+                  years:
+                    description: Ano para utilizar na pesquisa da fipe
+                    type: array
+                    items:
+                      anyOf:
+                        - type: integer
+                        - type: string
                   sellers:
-                      type: array
-                      items:
-                        $ref: '#/components/schemas/Seller'
+                    description: ID dos vendedores da sua loja que será usado no cadastro de anúncio
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Seller'

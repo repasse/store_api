@@ -17,13 +17,25 @@ info:
 
     Esta especificação visa auxiliar programadores a integrarem seus sistemas com a plataforma Repasse.
 
-    # Jornada do anúncio
+    ## Ambientes
 
-    Siga estes passos para publicar um novo anúncio
+    Oferecemos o ambiente de testes para envio de anúncios até a homologação, o endereço da api está em http://beta.aplicativorepasse.com.br. O ambiente de produção (apenas para clientes homologados estão em https://srv.aplicativorepasse.com.br)
+
+    Para obter uma credencial de testes e de produção contate o depto comercial.
+
+    ## Autenticação:
+
+    Após obter sua credencial você deve informá-la em suas requisições usando a chave Api-Key no seu header
+       
+
+
+    ## Jornada do anúncio
+
+    Siga estes passos para publicar um novo anúncio:
 
     1. Obtenha a lista auxiliar (marcas/modelos/anos/opcionais/vendedores)
 
-    1. Obtenha a fipe do anúncio
+    1. Com a marca e o ano desejado obtenha a fipe do anúncio
 
     1. Com os dados das listas auxiliares envie o cadastro do anúncio
 

@@ -1,0 +1,27 @@
+type: object
+description: Dados da fipe de um anúncio
+properties:
+  id:
+    type: integer
+    description: ID da fipe (que será usado no cadastro de anúncio)
+  modelo_id:
+    type: integer
+    description: Código do modelo
+  brand_id:
+    type: integer
+    description: ID da marca
+  year:
+    type: string
+    description: Ano do modelo
+  fuel:
+    type: string
+    description: Combustível do modelo
+  code:
+    type: string
+    description: "Código da Fipe, o mesmo apresentado no site da Fipe"
+  price:
+    type: number
+    description: Valor atual do veículo na tabela fipe
+  "type":
+    type: string
+    description: Tipo de veículo (0=carro, 5=caminhão, 8=moto)

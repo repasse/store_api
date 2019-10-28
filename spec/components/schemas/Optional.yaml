@@ -3,7 +3,7 @@ description: Opcional de um carro
 properties:
   id:
     type: integer
-    description: ID do opcional do anúncio
+    description: ID do opcional do anúncio (que será usado no cadastro de anúncio)
   name:
     type: string
     description: Nome do item Opcional

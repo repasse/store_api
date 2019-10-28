@@ -1,0 +1,42 @@
+get:
+  tags:
+    - Auxiliares
+  summary: Obtem a lista de modelos para cadastro de anúncios
+  operationId: populateModels
+  parameters:
+    - name: store_id
+      in: path
+      required: true
+      description: Id do cliente
+      schema:
+        type: integer
+    - name: brand_id
+      in: path
+      required: true
+      description: Marca do veículo ( obtido em populate/{car_type} )
+      schema:
+        type: integer
+    - name: year
+      in: path
+      required: true
+      description: Ano do Modelo do veículo (1984/2020) ou Zero KM
+      schema:
+        oneOf:
+          - type: integer
+          - type: string
+  responses:
+    200:
+      description: Dados da requisição
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                description: resultado da requisição
+            data:
+              type: array
+              description: Dados da tabela Fipe
+              items:
+                $ref: '#/components/schemas/Fipe'
