@@ -1,0 +1,15 @@
+type: object
+description: Objeto com o tipo de carro
+properties:
+  id:
+    type: integer
+    description: Id do modelo
+  name:
+    type: string
+    description: Nome do modelo
+  car_type:
+    type: integer
+    description: Tipo do veículo
+  brand_id:
+    type: integer
+    description: Id da marca

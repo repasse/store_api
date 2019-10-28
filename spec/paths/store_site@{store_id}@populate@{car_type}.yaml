@@ -1,0 +1,48 @@
+get:
+  tags:
+    - Auxiliares
+  summary: Obtem a lista inicial para cadastro de anúncios (e também para pesquisar anúncios)
+  operationId: populateCar
+  parameters:
+    - name: store_id
+      in: path
+      required: true
+      description: id do cliente
+      schema:
+        type: integer
+    - name: car_type
+      in: path
+      required: true
+      description: Tipo de veículo
+      schema:
+        type: integer
+  responses:
+    200:
+      description: Dados da operação
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                description: Resultado da operação
+              data:
+                type: object
+                properties:
+                  brands:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Brand'
+                  models:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Modelo'
+                  optionals:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Optional'
+                  sellers:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Seller'

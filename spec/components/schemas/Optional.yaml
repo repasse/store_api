@@ -1,0 +1,15 @@
+type: object
+description: Opcional de um carro
+properties:
+  id:
+    type: integer
+    description: ID do opcional do anúncio
+  name:
+    type: string
+    description: Nome do item Opcional
+  description:
+    type: string
+    description: Descrição do item opcional
+  "type":
+    type: integer
+    description: Tipo do veículo

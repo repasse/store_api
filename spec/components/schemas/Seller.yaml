@@ -1,0 +1,9 @@
+type: object
+description: Dados de um vendedor
+properties:
+  id:
+    type: integer
+    description: ID do vendedor
+  name:
+    type: string
+    description: Nome do vendedor

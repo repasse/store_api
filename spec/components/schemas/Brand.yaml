@@ -1,0 +1,12 @@
+type: object
+description: Marca de um carro
+properties:
+  id:
+    type: integer
+    description: ID da marca
+  name:
+    type: string
+    description: Nome da marca
+  type:
+    type: integer
+    description: Tipo do carro
