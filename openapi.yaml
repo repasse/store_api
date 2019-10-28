@@ -18,17 +18,18 @@ info:
     Oferecemos o ambiente de testes para envio de anúncios até a homologação, o endereço da api está em http://beta.aplicativorepasse.com.br. O ambiente de produção (apenas para clientes homologados estão em https://srv.aplicativorepasse.com.br)
     Para obter uma credencial de testes e de produção contate o depto comercial.
     ## Autenticação:
-    Após obter sua credencial você deve informá-la em suas requisições usando a chave Api-Key no seu header
-
+    Após obter sua credencial você deve informá-la em suas requisições  via Header usando a o cabeçalho com o nome Api-Key
 
     ## Jornada do anúncio
     Siga estes passos para publicar um novo anúncio:
-    1. Obtenha a lista auxiliar (marcas/modelos/anos/opcionais/vendedores)
-    1. Com a marca e o ano desejado obtenha a fipe do anúncio
+    1. Obtenha a lista auxiliar (marcas/modelos/anos/opcionais/vendedores) em [/store_site/{store_id}/populate/type/{car_type}](#operation/populateCar)
+    1. Com a marca e o ano desejado obtenha a fipe do anúncio em [/store_site/{store_id}/populate/model/{brand_id}/{year}](#operation/populateModels)
     1. Com os dados das listas auxiliares envie o cadastro do anúncio
     1. Envie entre 4 e 10 fotos
     1. Solicite a publicação do anúncio
 tags:
+  - name: Auxiliares
+    description: Endpoints para obtenção de dados auxiliares ao cadastro de anúncios
   - name: Car
     description: Operações referentes ao cadastro e edição de anúncios
 servers:
@@ -583,6 +584,10 @@ components:
       properties:
         reason_id:
           type: integer
+          enum:
+            - 1
+            - 2
+            - 3
           description: Motivo da exclusão 1- Vendido pela plataforma 2- Vendido fora da plataforma 3- Somente excluir
         buyer_id:
           type: integer

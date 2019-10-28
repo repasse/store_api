@@ -12,9 +12,13 @@
       "url": "https://www.repasses.com.br/wp-content/themes/2018_repasse_site/assets/images/logo-repasse-white.png",
       "backgroundColor": "#2B4F83"
     },
-    "description": "\nEsta é a API para visualização / cadastro de anúncios da plataforma Repasse\n# Introdução\nEsta especificação visa auxiliar programadores a integrarem seus sistemas com a plataforma Repasse.\n## Ambientes\nOferecemos o ambiente de testes para envio de anúncios até a homologação, o endereço da api está em http://beta.aplicativorepasse.com.br. O ambiente de produção (apenas para clientes homologados estão em https://srv.aplicativorepasse.com.br)\nPara obter uma credencial de testes e de produção contate o depto comercial.\n## Autenticação:\nApós obter sua credencial você deve informá-la em suas requisições usando a chave Api-Key no seu header\n\n\n## Jornada do anúncio\nSiga estes passos para publicar um novo anúncio:\n1. Obtenha a lista auxiliar (marcas/modelos/anos/opcionais/vendedores)\n1. Com a marca e o ano desejado obtenha a fipe do anúncio\n1. Com os dados das listas auxiliares envie o cadastro do anúncio\n1. Envie entre 4 e 10 fotos\n1. Solicite a publicação do anúncio\n"
+    "description": "\nEsta é a API para visualização / cadastro de anúncios da plataforma Repasse\n# Introdução\nEsta especificação visa auxiliar programadores a integrarem seus sistemas com a plataforma Repasse.\n## Ambientes\nOferecemos o ambiente de testes para envio de anúncios até a homologação, o endereço da api está em http://beta.aplicativorepasse.com.br. O ambiente de produção (apenas para clientes homologados estão em https://srv.aplicativorepasse.com.br)\nPara obter uma credencial de testes e de produção contate o depto comercial.\n## Autenticação:\nApós obter sua credencial você deve informá-la em suas requisições  via Header usando a o cabeçalho com o nome Api-Key\n\n## Jornada do anúncio\nSiga estes passos para publicar um novo anúncio:\n1. Obtenha a lista auxiliar (marcas/modelos/anos/opcionais/vendedores) em [/store_site/{store_id}/populate/type/{car_type}](#operation/populateCar)\n1. Com a marca e o ano desejado obtenha a fipe do anúncio em [/store_site/{store_id}/populate/model/{brand_id}/{year}](#operation/populateModels)\n1. Com os dados das listas auxiliares envie o cadastro do anúncio\n1. Envie entre 4 e 10 fotos\n1. Solicite a publicação do anúncio\n"
   },
   "tags": [
+    {
+      "name": "Auxiliares",
+      "description": "Endpoints para obtenção de dados auxiliares ao cadastro de anúncios"
+    },
     {
       "name": "Car",
       "description": "Operações referentes ao cadastro e edição de anúncios"
@@ -850,6 +854,11 @@
         "properties": {
           "reason_id": {
             "type": "integer",
+            "enum": [
+              1,
+              2,
+              3
+            ],
             "description": "Motivo da exclusão 1- Vendido pela plataforma 2- Vendido fora da plataforma 3- Somente excluir"
           },
           "buyer_id": {
