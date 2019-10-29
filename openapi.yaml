@@ -24,9 +24,9 @@ info:
     Siga estes passos para publicar um novo anúncio:
     1. Obtenha a lista auxiliar (marcas/modelos/anos/opcionais/vendedores) em [/store_site/{store_id}/populate/type/{car_type}](#operation/populateCar)
     1. Com a marca e o ano desejado obtenha a fipe do anúncio em [/store_site/{store_id}/populate/model/{brand_id}/{year}](#operation/populateModels)
-    1. Com os dados das listas auxiliares envie o cadastro do anúncio
-    1. Envie entre 4 e 10 fotos
-    1. Solicite a publicação do anúncio
+    1. Com os dados das listas auxiliares envie o cadastro do anúncio em [/store_site/{store_id}/car](#operation/createCar)
+    1. Envie entre 4 e 10 fotos em [/store_site/{store_id}/car/{car_id}/image](#operation/saveCarPhoto)
+    1. Solicite a publicação do anúncio em [/store_site/{store_id}/car/{car_id}/publish](#operation/publishCar)
 tags:
   - name: Auxiliares
     description: Endpoints para obtenção de dados auxiliares ao cadastro de anúncios
