@@ -243,7 +243,7 @@ paths:
       security:
         - api_key: []
       responses:
-        '200':
+        '201':
           description: 'Enviado com sucesso, o resultado (em análise/publicado/exclusivo) vem no corpo deste resultado'
         '409':
           description: A quantidade de fotos obrigatórias (atualmente entre 4 e 10) está incorreta

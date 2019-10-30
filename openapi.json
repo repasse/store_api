@@ -357,7 +357,7 @@
           }
         ],
         "responses": {
-          "200": {
+          "201": {
             "description": "Enviado com sucesso, o resultado (em análise/publicado/exclusivo) vem no corpo deste resultado"
           },
           "409": {
