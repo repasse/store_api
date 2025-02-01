@@ -1,0 +1,142 @@
+parameters:
+  - name: store_id
+    in: path
+    description: Código da loja
+    required: true
+    schema:
+      type: integer
+
+get:
+  summary: "Obtém a lista de veículos da loja, com paginação"
+  description: "Obtém a lista de veículos da loja, com paginação"
+  tags:
+    - Site
+  parameters:
+    - name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+      description: "Número da página (default: 1)"
+    - name: car_type
+      in: query
+      required: false
+      schema:
+        type: string
+      description: "Car type (e.g. sedan, SUV, etc.)"
+    - name: brand_id
+      in: query
+      required: false
+      schema:
+        type: integer
+      description: "Brand ID"
+    - name: model_id
+      in: query
+      required: false
+      schema:
+        type: integer
+      description: "Model ID"
+    - name: start_year
+      in: query
+      required: false
+      schema:
+        type: integer
+      description: "Start year (default: 1984)"
+    - name: end_year
+      in: query
+      required: false
+      schema:
+        type: integer
+      description: "End year (default: current year + 1)"
+    - name: fuel
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+      description: "Fuel types (e.g. gasoline, diesel, etc.)"
+    - name: start_price
+      in: query
+      required: false
+      schema:
+        type: integer
+      description: "Start price (default: 0)"
+    - name: end_price
+      in: query
+      required: false
+      schema:
+        type: integer
+      description: "End price (default: 999999)"
+    - name: doors
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: integer
+      description: "Number of doors"
+    - name: eixos
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: integer
+      description: "Number of axles"
+    - name: start_km
+      in: query
+      required: false
+      schema:
+        type: integer
+      description: "Start km (default: 0)"
+    - name: end_km
+      in: query
+      required: false
+      schema:
+        type: integer
+      description: "End km (default: 999999)"
+    - name: state_id
+      in: query
+      required: false
+      schema:
+        type: integer
+      description: "State ID"
+    - name: color_ids
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: integer
+      description: "Color IDs"
+    - name: optionals_id
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: integer
+      description: "Optional IDs"
+  responses:
+    200:
+      description: Carro cadastrado com sucesso
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                description: Indica se a operação foi bem sucedida
+              total:
+                type: integer
+                description: Total de carros
+              order_by:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrderResponse'
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CarResponse'

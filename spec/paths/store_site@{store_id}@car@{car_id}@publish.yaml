@@ -1,6 +1,6 @@
 post:
   tags:
-    - Car
+    - Cadastro
   summary: Publica o carro na plataforma
   description: Envia o carro para publicação na plataforma ele vai ser moderado pelo nosso sistema e, caso liberado, estará apto a receber negociações e propostas
   operationId: publishCar

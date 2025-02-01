@@ -1,0 +1,20 @@
+description: Tipos de ordenação possíveis
+type: object
+properties:
+  label:
+    type: string
+    description: Nome da ordenação
+    example: "Ordenação original"
+  value:
+    type: object
+    properties:
+      order_by:
+        type: string
+        description: Valor que vai ser enviado para ordenação na requisição
+        example: "year"
+        enum: [null, "year", "price", "km"]
+      direction:
+        type: string
+        description: Direção da ordenação
+        example: "desc"
+        enum: [null, "asc", "desc"]

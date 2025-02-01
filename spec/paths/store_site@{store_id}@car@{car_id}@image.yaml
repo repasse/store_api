@@ -1,6 +1,6 @@
 post:
   tags:
-    - Car
+    - Cadastro
   summary: Envia uma imagem referente a um carro
   operationId: saveCarPhoto
   parameters:

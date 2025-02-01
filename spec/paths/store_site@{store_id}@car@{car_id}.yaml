@@ -13,7 +13,7 @@ parameters:
       type: integer
 put:
   tags:
-    - Car
+    - Cadastro
   summary: Edita carro já publicado
   description: Edição de carro
   operationId: editCar

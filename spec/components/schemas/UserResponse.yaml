@@ -1,0 +1,65 @@
+type: object
+description: Dados do usuário
+properties:
+  id:
+    type: integer
+    description: ID do usuário
+  role_id:
+    type: string
+    description: Role ID do usuário (nível de aceso)
+  name:
+    type: string
+    description: Nome
+  email:
+    type: string
+    description: Email
+  dealership:
+    type: string
+    description: Nome da loja
+  document:
+    type: string
+    description: CPF/CNPJ
+  zipcode:
+    type: string
+    description: CEP
+  address:
+    type: string
+    description: Endereço
+  number:
+    type: string
+    description: Número
+  neighborhood:
+    type: string
+    description: Bairro
+  city:
+    type: string
+    description: Cidade
+  state:
+    type: string
+    description: Estado (UF)
+  phone:
+    type: string
+    description: Telefone
+  cell_phone:
+    type: string
+    description: Telefone Celular
+  photo:
+    type: string
+    description: Endereço público da foto enviada pelo usuário
+  latitude:
+    type: string
+    description: Localização do aparelho celualar (latitude)
+  longitude:
+    type: string
+    description: Localização do aparelho celualar (longitude)
+  device_token:
+    type: string
+    description: Token para enviar notificações ao usuário
+  created_at:
+    type: string
+    description: Data de criação
+  is_aprovado:
+    type: string
+    description: Status do usuário (0 bloqueado 1 aprovado)
+  "type":
+    $ref: '#/components/schemas/UserTypeResponse'

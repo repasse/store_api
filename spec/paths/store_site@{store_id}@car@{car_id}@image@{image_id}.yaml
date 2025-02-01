@@ -1,6 +1,6 @@
 delete:
   tags:
-    - Car
+    - Cadastro
   summary: Remove a imagem do carro
   operationId: removeImage
   parameters:

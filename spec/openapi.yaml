@@ -22,7 +22,7 @@ info:
     ## Ambientes
 
     Oferecemos o ambiente de testes para envio de anúncios até a homologação, o
-    endereço da api está em http://beta.aplicativorepasse.com.br. O ambiente de
+    endereço da api está em http://dev.aplicativorepasse.com.br. O ambiente de
     produção (apenas para clientes homologados estão em
     https://srv.aplicativorepasse.com.br)
 
@@ -31,7 +31,9 @@ info:
     ## Autenticação:
 
     Após obter sua credencial você deve informá-la em suas requisições  via Header usando a
-    o cabeçalho com o nome Api-Key
+    o cabeçalho com o nome Api-Key. A chave de autenticação serve para os endpoints de cadastro
+    de anúncio. Os endpoints do site de cliente, são liberados via departamento comercial e não 
+    precisam de chave de autenticação.
 
 
     ## Jornada do anúncio
@@ -50,8 +52,10 @@ info:
 tags:
   - name: Auxiliares
     description: Endpoints para obtenção de dados auxiliares ao cadastro de anúncios
-  - name: Car
+  - name: Cadastro
     description: Operações referentes ao cadastro e edição de anúncios
+  - name: Site
+    description: Endpoints do site de cliente (que não usam token de autenticação)
 servers:
-  - url: 'https://beta.aplicativorepasse.com.br/api'
+  - url: 'https://dev.aplicativorepasse.com.br/api'
   - url: 'https://srv.aplicativorepasse.com.br/api'

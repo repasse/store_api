@@ -13,7 +13,7 @@ parameters:
       type: integer
 post:
   tags:
-    - Car
+    - Cadastro
   summary: Solicita a remoção de um carro da plataforma
   description: Permite encerrar a venda de um carro, tanto removendo como marcando como vendido
   operationId: removeCar

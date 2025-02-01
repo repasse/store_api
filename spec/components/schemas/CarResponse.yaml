@@ -1,0 +1,87 @@
+description: Carro / Anúncio
+type: object
+properties:
+  id:
+    type: integer
+    description: ID do anúncio
+  user_id:
+    type: integer
+    description: ID do anunciante
+  color_id:
+    type: integer
+    description: ID da cor do carro
+  brand_id:
+    type: integer
+    description: ID da marca
+  fipe_id:
+    type: integer
+    description: Código FIPE do carro (da tabela interna não da fipe)
+  car_status_id:
+    type: integer
+    description: "Status do carro (1 em aberto, 2 negociando, 3 vendido, 4 em cadastro)"
+  doors:
+    type: integer
+    description: Quantidade de portas
+  status:
+    type: string
+    description: Status (não utilizar)
+  year:
+    type: integer
+    description: "Ano de fabricação do veículo"
+  observation:
+    type: string
+    description: Campo observações do anúncio
+  price:
+    type: number
+    description: Valor do carro (mudar para decimal)
+  km:
+    type: integer
+    description: Quilometragem do carro
+  created_at:
+    type: string
+    description: Data/hora de criação do anúncio
+  published_at:
+    type: string
+    description: Data de Publicação do Anúncio
+  published_to:
+    type: array
+    items:
+      type: integer
+  "visible_to":
+    type: array
+    items:
+      $ref: '#/components/schemas/UserTypeResponse'
+  user:
+    $ref: '#/components/schemas/UserResponse'
+  color:
+    $ref: '#/components/schemas/Color'
+  brand:
+    $ref: '#/components/schemas/Brand'
+  fipe:
+    $ref: '#/components/schemas/Fipe'
+  car_status:
+    $ref: '#/components/schemas/CarStatusResponse'
+  car_negotiations:
+    type: integer
+    description: Quantidade de negociações do carro
+  image:
+    type: string
+    description: "Uma imagem do veículo"
+  photos:
+    type: array
+    items:
+      $ref: '#/components/schemas/CarImageResponse'
+  optionals:
+    type: array
+    items:
+      $ref: '#/components/schemas/Optional'
+  is_favorite:
+    type: boolean
+    description: Retorna se o veículo é favorito
+  fipe_percent_off:
+    type: string
+    description: Percentual do veículo abaixo da tabela fipe
+  site_url:
+    type: string
+    format: uri
+    description: Site do cliente (para usuários do plano com site)

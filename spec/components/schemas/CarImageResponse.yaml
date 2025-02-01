@@ -1,0 +1,13 @@
+type: object
+description: Imagem de um anúncio
+properties:
+  id:
+    type: integer
+    description: ID da imagem
+  filename:
+    type: string
+    description: Nome do arquivo físico
+  photo_order:
+    type: integer
+    description: Ordem da imagem no anúncio
+

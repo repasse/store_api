@@ -1,0 +1,9 @@
+type: object
+description: Status de um carro
+properties:
+  id:
+    type: integer
+    description: "ID do status (1 em aberto 2 negociando 3 vendido 4 em cadastro)"
+  name:
+    type: string
+    description: Nome do status

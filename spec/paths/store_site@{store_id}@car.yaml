@@ -1,16 +1,17 @@
+parameters:
+  - name: store_id
+    in: path
+    description: Código da loja
+    required: true
+    schema:
+      type: integer
 post:
   tags:
-    - Car
+    - Cadastro
   summary: Cria um novo Carro
   description: Novos carros são criados por este endpoint
   operationId: createCar
-  parameters:
-      - name: store_id
-        in: path
-        description: Código da loja
-        required: true
-        schema:
-          type: integer
+
   requestBody:
     content:
       application/json:
@@ -39,3 +40,30 @@ post:
             msg: 'Anúncio cadastrado com sucesso'
     400:
       description: Um dos campos obrigatórios não foi preenchido
+
+get:
+  tags:
+    - Site
+  summary: Obtem um carro
+  description: Obtem um carro pelo ID
+  operationId: getCar
+  parameters:
+      - name: store_id
+        in: path
+        description: Código da loja
+        required: true
+        schema:
+          type: integer
+  responses:
+    200:
+      description: Anúncio
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                description: Resultado da requisição
+              data:
+                $ref: '#/components/schemas/CarResponse'
