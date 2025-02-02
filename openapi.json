@@ -12,7 +12,7 @@
       "url": "https://www.repasses.com.br/wp-content/themes/2018_repasse_site/assets/images/logo-repasse-white.png",
       "backgroundColor": "#2B4F83"
     },
-    "description": "\nEsta é a API para visualização / cadastro de anúncios da plataforma Repasse\n# Introdução\nEsta especificação visa auxiliar programadores a integrarem seus sistemas com a plataforma Repasse.\n## Ambientes\nOferecemos o ambiente de testes para envio de anúncios até a homologação, o endereço da api está em http://beta.aplicativorepasse.com.br. O ambiente de produção (apenas para clientes homologados estão em https://srv.aplicativorepasse.com.br)\nPara obter uma credencial de testes e de produção contate o depto comercial.\n## Autenticação:\nApós obter sua credencial você deve informá-la em suas requisições  via Header usando a o cabeçalho com o nome Api-Key\n\n## Jornada do anúncio\nSiga estes passos para publicar um novo anúncio:\n1. Obtenha a lista auxiliar (marcas/modelos/anos/opcionais/vendedores) em [/store_site/{store_id}/populate/type/{car_type}](#operation/populateCar)\n1. Com a marca e o ano desejado obtenha a fipe do anúncio em [/store_site/{store_id}/populate/model/{brand_id}/{year}](#operation/populateModels)\n1. Com os dados das listas auxiliares envie o cadastro do anúncio em [/store_site/{store_id}/car](#operation/createCar)\n1. Envie entre 4 e 10 fotos em [/store_site/{store_id}/car/{car_id}/image](#operation/saveCarPhoto)\n1. Solicite a publicação do anúncio em [/store_site/{store_id}/car/{car_id}/publish](#operation/publishCar)\n"
+    "description": "\nEsta é a API para visualização / cadastro de anúncios da plataforma Repasse\n# Introdução\nEsta especificação visa auxiliar programadores a integrarem seus sistemas com a plataforma Repasse.\n## Ambientes\nOferecemos o ambiente de testes para envio de anúncios até a homologação, o endereço da api está em http://dev.aplicativorepasse.com.br. O ambiente de produção (apenas para clientes homologados estão em https://srv.aplicativorepasse.com.br)\nPara obter uma credencial de testes e de produção contate o depto comercial.\n## Autenticação:\nApós obter sua credencial você deve informá-la em suas requisições  via Header usando a o cabeçalho com o nome Api-Key. A chave de autenticação serve para os endpoints de cadastro de anúncio. Os endpoints do site de cliente, são liberados via departamento comercial e não  precisam de chave de autenticação.\n\n## Jornada do anúncio\nSiga estes passos para publicar um novo anúncio:\n1. Obtenha a lista auxiliar (marcas/modelos/anos/opcionais/vendedores) em [/store_site/{store_id}/populate/type/{car_type}](#operation/populateCar)\n1. Com a marca e o ano desejado obtenha a fipe do anúncio em [/store_site/{store_id}/populate/model/{brand_id}/{year}](#operation/populateModels)\n1. Com os dados das listas auxiliares envie o cadastro do anúncio em [/store_site/{store_id}/car](#operation/createCar)\n1. Envie entre 4 e 10 fotos em [/store_site/{store_id}/car/{car_id}/image](#operation/saveCarPhoto)\n1. Solicite a publicação do anúncio em [/store_site/{store_id}/car/{car_id}/publish](#operation/publishCar)\n"
   },
   "tags": [
     {
@@ -20,13 +20,17 @@
       "description": "Endpoints para obtenção de dados auxiliares ao cadastro de anúncios"
     },
     {
-      "name": "Car",
+      "name": "Cadastro",
       "description": "Operações referentes ao cadastro e edição de anúncios"
+    },
+    {
+      "name": "Site",
+      "description": "Endpoints do site de cliente (que não usam token de autenticação)"
     }
   ],
   "servers": [
     {
-      "url": "https://beta.aplicativorepasse.com.br/api"
+      "url": "https://dev.aplicativorepasse.com.br/api"
     },
     {
       "url": "https://srv.aplicativorepasse.com.br/api"
@@ -34,24 +38,24 @@
   ],
   "paths": {
     "/store_site/{store_id}/car": {
+      "parameters": [
+        {
+          "name": "store_id",
+          "in": "path",
+          "description": "Código da loja",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
       "post": {
         "tags": [
-          "Car"
+          "Cadastro"
         ],
         "summary": "Cria um novo Carro",
         "description": "Novos carros são criados por este endpoint",
         "operationId": "createCar",
-        "parameters": [
-          {
-            "name": "store_id",
-            "in": "path",
-            "description": "Código da loja",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -96,6 +100,46 @@
             "description": "Um dos campos obrigatórios não foi preenchido"
           }
         }
+      },
+      "get": {
+        "tags": [
+          "Site"
+        ],
+        "summary": "Obtem um carro",
+        "description": "Obtem um carro pelo ID",
+        "operationId": "getCar",
+        "parameters": [
+          {
+            "name": "store_id",
+            "in": "path",
+            "description": "Código da loja",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Anúncio",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "description": "Resultado da requisição"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/CarResponse"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/store_site/{store_id}/car/{car_id}": {
@@ -121,7 +165,7 @@
       ],
       "put": {
         "tags": [
-          "Car"
+          "Cadastro"
         ],
         "summary": "Edita carro já publicado",
         "description": "Edição de carro",
@@ -175,7 +219,7 @@
     "/store_site/{store_id}/car/{car_id}/image": {
       "post": {
         "tags": [
-          "Car"
+          "Cadastro"
         ],
         "summary": "Envia uma imagem referente a um carro",
         "operationId": "saveCarPhoto",
@@ -272,7 +316,7 @@
     "/store_site/{store_id}/car/{car_id}/image/{image_id}": {
       "delete": {
         "tags": [
-          "Car"
+          "Cadastro"
         ],
         "summary": "Remove a imagem do carro",
         "operationId": "removeImage",
@@ -326,7 +370,7 @@
     "/store_site/{store_id}/car/{car_id}/publish": {
       "post": {
         "tags": [
-          "Car"
+          "Cadastro"
         ],
         "summary": "Publica o carro na plataforma",
         "description": "Envia o carro para publicação na plataforma ele vai ser moderado pelo nosso sistema e, caso liberado, estará apto a receber negociações e propostas",
@@ -392,7 +436,7 @@
       ],
       "post": {
         "tags": [
-          "Car"
+          "Cadastro"
         ],
         "summary": "Solicita a remoção de um carro da plataforma",
         "description": "Permite encerrar a venda de um carro, tanto removendo como marcando como vendido",
@@ -415,6 +459,221 @@
         "responses": {
           "200": {
             "description": "Solicitação efetuada com sucesso"
+          }
+        }
+      }
+    },
+    "/store_site/{store_id}/cars": {
+      "parameters": [
+        {
+          "name": "store_id",
+          "in": "path",
+          "description": "Código da loja",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Obtém a lista de veículos da loja, com paginação",
+        "description": "Obtém a lista de veículos da loja, com paginação",
+        "tags": [
+          "Site"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Número da página (default: 1)"
+          },
+          {
+            "name": "car_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Car type (e.g. sedan, SUV, etc.)"
+          },
+          {
+            "name": "brand_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Brand ID"
+          },
+          {
+            "name": "model_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Model ID"
+          },
+          {
+            "name": "start_year",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Start year (default: 1984)"
+          },
+          {
+            "name": "end_year",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "End year (default: current year + 1)"
+          },
+          {
+            "name": "fuel",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "Fuel types (e.g. gasoline, diesel, etc.)"
+          },
+          {
+            "name": "start_price",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Start price (default: 0)"
+          },
+          {
+            "name": "end_price",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "End price (default: 999999)"
+          },
+          {
+            "name": "doors",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "description": "Number of doors"
+          },
+          {
+            "name": "eixos",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "description": "Number of axles"
+          },
+          {
+            "name": "start_km",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Start km (default: 0)"
+          },
+          {
+            "name": "end_km",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "End km (default: 999999)"
+          },
+          {
+            "name": "state_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "State ID"
+          },
+          {
+            "name": "color_ids",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "description": "Color IDs"
+          },
+          {
+            "name": "optionals_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "description": "Optional IDs"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Carro cadastrado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "description": "Indica se a operação foi bem sucedida"
+                    },
+                    "total": {
+                      "type": "integer",
+                      "description": "Total de carros"
+                    },
+                    "order_by": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/OrderResponse"
+                      }
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/CarResponse"
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -704,6 +963,160 @@
           "optionals"
         ]
       },
+      "CarImageResponse": {
+        "type": "object",
+        "description": "Imagem de um anúncio",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID da imagem"
+          },
+          "filename": {
+            "type": "string",
+            "description": "Nome do arquivo físico"
+          },
+          "photo_order": {
+            "type": "integer",
+            "description": "Ordem da imagem no anúncio"
+          }
+        }
+      },
+      "CarResponse": {
+        "description": "Carro / Anúncio",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID do anúncio"
+          },
+          "user_id": {
+            "type": "integer",
+            "description": "ID do anunciante"
+          },
+          "color_id": {
+            "type": "integer",
+            "description": "ID da cor do carro"
+          },
+          "brand_id": {
+            "type": "integer",
+            "description": "ID da marca"
+          },
+          "fipe_id": {
+            "type": "integer",
+            "description": "Código FIPE do carro (da tabela interna não da fipe)"
+          },
+          "car_status_id": {
+            "type": "integer",
+            "description": "Status do carro (1 em aberto, 2 negociando, 3 vendido, 4 em cadastro)"
+          },
+          "doors": {
+            "type": "integer",
+            "description": "Quantidade de portas"
+          },
+          "status": {
+            "type": "string",
+            "description": "Status (não utilizar)"
+          },
+          "year": {
+            "type": "integer",
+            "description": "Ano de fabricação do veículo"
+          },
+          "observation": {
+            "type": "string",
+            "description": "Campo observações do anúncio"
+          },
+          "price": {
+            "type": "number",
+            "description": "Valor do carro (mudar para decimal)"
+          },
+          "km": {
+            "type": "integer",
+            "description": "Quilometragem do carro"
+          },
+          "created_at": {
+            "type": "string",
+            "description": "Data/hora de criação do anúncio"
+          },
+          "published_at": {
+            "type": "string",
+            "description": "Data de Publicação do Anúncio"
+          },
+          "published_to": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "visible_to": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserTypeResponse"
+            }
+          },
+          "user": {
+            "$ref": "#/components/schemas/UserResponse"
+          },
+          "color": {
+            "$ref": "#/components/schemas/Color"
+          },
+          "brand": {
+            "$ref": "#/components/schemas/Brand"
+          },
+          "fipe": {
+            "$ref": "#/components/schemas/Fipe"
+          },
+          "car_status": {
+            "$ref": "#/components/schemas/CarStatusResponse"
+          },
+          "car_negotiations": {
+            "type": "integer",
+            "description": "Quantidade de negociações do carro"
+          },
+          "image": {
+            "type": "string",
+            "description": "Uma imagem do veículo"
+          },
+          "photos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CarImageResponse"
+            }
+          },
+          "optionals": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Optional"
+            }
+          },
+          "is_favorite": {
+            "type": "boolean",
+            "description": "Retorna se o veículo é favorito"
+          },
+          "fipe_percent_off": {
+            "type": "string",
+            "description": "Percentual do veículo abaixo da tabela fipe"
+          },
+          "site_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Site do cliente (para usuários do plano com site)"
+          }
+        }
+      },
+      "CarStatusResponse": {
+        "type": "object",
+        "description": "Status de um carro",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID do status (1 em aberto 2 negociando 3 vendido 4 em cadastro)"
+          },
+          "name": {
+            "type": "string",
+            "description": "Nome do status"
+          }
+        }
+      },
       "Color": {
         "type": "object",
         "description": "Cores de um carro",
@@ -848,6 +1261,43 @@
           }
         }
       },
+      "OrderResponse": {
+        "description": "Tipos de ordenação possíveis",
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "description": "Nome da ordenação",
+            "example": "Ordenação original"
+          },
+          "value": {
+            "type": "object",
+            "properties": {
+              "order_by": {
+                "type": "string",
+                "description": "Valor que vai ser enviado para ordenação na requisição",
+                "example": "year",
+                "enum": [
+                  null,
+                  "year",
+                  "price",
+                  "km"
+                ]
+              },
+              "direction": {
+                "type": "string",
+                "description": "Direção da ordenação",
+                "example": "desc",
+                "enum": [
+                  null,
+                  "asc",
+                  "desc"
+                ]
+              }
+            }
+          }
+        }
+      },
       "RemoveCar": {
         "type": "object",
         "description": "Dados para remover um carro da plataforma",
@@ -881,6 +1331,109 @@
           "name": {
             "type": "string",
             "description": "Nome do vendedor"
+          }
+        }
+      },
+      "UserResponse": {
+        "type": "object",
+        "description": "Dados do usuário",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID do usuário"
+          },
+          "role_id": {
+            "type": "string",
+            "description": "Role ID do usuário (nível de aceso)"
+          },
+          "name": {
+            "type": "string",
+            "description": "Nome"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email"
+          },
+          "dealership": {
+            "type": "string",
+            "description": "Nome da loja"
+          },
+          "document": {
+            "type": "string",
+            "description": "CPF/CNPJ"
+          },
+          "zipcode": {
+            "type": "string",
+            "description": "CEP"
+          },
+          "address": {
+            "type": "string",
+            "description": "Endereço"
+          },
+          "number": {
+            "type": "string",
+            "description": "Número"
+          },
+          "neighborhood": {
+            "type": "string",
+            "description": "Bairro"
+          },
+          "city": {
+            "type": "string",
+            "description": "Cidade"
+          },
+          "state": {
+            "type": "string",
+            "description": "Estado (UF)"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Telefone"
+          },
+          "cell_phone": {
+            "type": "string",
+            "description": "Telefone Celular"
+          },
+          "photo": {
+            "type": "string",
+            "description": "Endereço público da foto enviada pelo usuário"
+          },
+          "latitude": {
+            "type": "string",
+            "description": "Localização do aparelho celualar (latitude)"
+          },
+          "longitude": {
+            "type": "string",
+            "description": "Localização do aparelho celualar (longitude)"
+          },
+          "device_token": {
+            "type": "string",
+            "description": "Token para enviar notificações ao usuário"
+          },
+          "created_at": {
+            "type": "string",
+            "description": "Data de criação"
+          },
+          "is_aprovado": {
+            "type": "string",
+            "description": "Status do usuário (0 bloqueado 1 aprovado)"
+          },
+          "type": {
+            "$ref": "#/components/schemas/UserTypeResponse"
+          }
+        }
+      },
+      "UserTypeResponse": {
+        "type": "object",
+        "description": "Objeto do tipo de usuário",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Código do usuário"
+          },
+          "name": {
+            "type": "string",
+            "description": "Nome do tipo do usuário"
           }
         }
       }

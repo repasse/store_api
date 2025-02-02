@@ -15,8 +15,4 @@
   "license": "Apache-2.0",
   "dependencies": {},
   "devDependencies": {}
-
-,"_resolved": "https://registry.npmjs.org/swagger-ui-dist/-/swagger-ui-dist-3.24.0.tgz"
-,"_integrity": "sha512-5uAjeEqV+zbtalBDXAIrkqUZwsUHYwvBSeGYlFcLj1ERS3jfprL4OPLSSriDoeXCtNmWzpz5aooV2qJW+DqdUQ=="
-,"_from": "swagger-ui-dist@3.24.0"
 }
