@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 1.1.1
+  version: 1.1.2
   title: Integrador Repasse
   termsOfService: 'https://repasses.com.br/terms/'
   contact:
@@ -16,7 +16,7 @@ info:
     Esta especificação visa auxiliar programadores a integrarem seus sistemas com a plataforma Repasse.
     ## Ambientes
     Oferecemos o ambiente de testes para envio de anúncios até a homologação, o endereço da api está em https://dev.aplicativorepasse.com.br. O ambiente de produção (apenas para clientes homologados está em https://srv.aplicativorepasse.com.br)
-    Para obter uma credencial de testes e de produção contate o departamento comercial.
+    Para obter uma credencial de testes e de produção contate o nosso departamento comercial.
     ## Autenticação:
     Após obter sua credencial você deve informá-la em suas requisições  via Header usando a o cabeçalho com o nome Api-Key. A chave de autenticação serve para os endpoints de cadastro de anúncio. Os endpoints do site de cliente, são liberados via departamento comercial e não  precisam de chave de autenticação.
 
