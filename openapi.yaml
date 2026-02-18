@@ -15,8 +15,8 @@ info:
     # Introdução
     Esta especificação visa auxiliar programadores a integrarem seus sistemas com a plataforma Repasse.
     ## Ambientes
-    Oferecemos o ambiente de testes para envio de anúncios até a homologação, o endereço da api está em http://dev.aplicativorepasse.com.br. O ambiente de produção (apenas para clientes homologados estão em https://srv.aplicativorepasse.com.br)
-    Para obter uma credencial de testes e de produção contate o depto comercial.
+    Oferecemos o ambiente de testes para envio de anúncios até a homologação, o endereço da api está em https://dev.aplicativorepasse.com.br. O ambiente de produção (apenas para clientes homologados está em https://srv.aplicativorepasse.com.br)
+    Para obter uma credencial de testes e de produção contate o departamento comercial.
     ## Autenticação:
     Após obter sua credencial você deve informá-la em suas requisições  via Header usando a o cabeçalho com o nome Api-Key. A chave de autenticação serve para os endpoints de cadastro de anúncio. Os endpoints do site de cliente, são liberados via departamento comercial e não  precisam de chave de autenticação.
 
@@ -34,6 +34,8 @@ tags:
     description: Operações referentes ao cadastro e edição de anúncios
   - name: Site
     description: Endpoints do site de cliente (que não usam token de autenticação)
+  - name: Avaliações
+    description: Endpoints do avaliador de veículos Repasse
 servers:
   - url: 'https://dev.aplicativorepasse.com.br/api'
   - url: 'https://srv.aplicativorepasse.com.br/api'
@@ -450,6 +452,44 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/CarResponse'
+  '/store_site/{store_id}/evaluations':
+    parameters:
+      - name: store_id
+        in: path
+        description: Código da loja
+        required: true
+        schema:
+          type: integer
+    get:
+      tags:
+        - Avaliações
+      summary: Obtém uma lista de avaliações
+      description: Obtém uma lista de avaliações
+      operationId: getEvaluations
+      security:
+        - api_key: []
+      parameters:
+        - name: store_id
+          in: path
+          description: Código da loja
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Anúncio
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Resultado da requisição
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CarEvaluation'
   '/store_site/{store_id}/populate/model/{brand_id}/{year}':
     get:
       tags:
@@ -642,6 +682,94 @@ components:
         - price
         - km
         - optionals
+    CarEvaluation:
+      type: object
+      description: Avaliação do veículo
+      properties:
+        id:
+          type: integer
+          description: Id do veículo
+        store_id:
+          type: integer
+          description: Código da Loja
+        rating_id:
+          type: integer
+          description: Id da avaliação
+        rating_link:
+          type: string
+          description: Link para o PDF da avaliação
+        plate:
+          type: string
+          description: Placa do veículo
+        client:
+          type: object
+          description: Dados do cliente
+          properties:
+            id:
+              type: integer
+            name:
+              type: string
+            phone:
+              type: string
+        name:
+          type: string
+          description: Nome do veículo
+        model:
+          type: string
+          description: Modelo do veículo
+        year:
+          type: integer
+          description: Ano do modelo do veículo
+        rating_value:
+          type: string
+          description: Valor da avaliação
+        rating_expense_price:
+          type: float
+          description: Total de despesas da avaliação
+        fipe_price:
+          type: float
+          description: Valor FIPE do veículo
+        created_at:
+          type: timestamp
+          description: Data de criação da avaliação
+        brand:
+          type: string
+          description: Marca do veículo avaliado
+        status:
+          type: string
+          description: Status do anúncio
+        published:
+          type: boolean
+          description: Informa se o veículo foi publicado como anúncio na plataforma
+        images:
+          type: object
+          properties:
+            cover:
+              type: string
+              description: Imagem inicial da avaliação
+            gallery:
+              type: array
+              items:
+                type: object
+                properties:
+                  filename:
+                    type: string
+                  photo_order:
+                    type: integer
+                  url:
+                    type: string
+        photos:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              filename:
+                type: string
+              photo_order:
+                type: integer
+                nullable: true
     CarImageResponse:
       type: object
       description: Imagem de um anúncio
