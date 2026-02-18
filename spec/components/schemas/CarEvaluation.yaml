@@ -1,0 +1,87 @@
+type: object
+description: Avaliação do veículo
+properties:
+  id:
+    type: integer
+    description: Id do veículo
+  store_id:
+    type: integer
+    description: Código da Loja
+  rating_id:
+    type: integer
+    description: Id da avaliação
+  rating_link:
+    type: string
+    description: "Link para o PDF da avaliação"
+  plate:
+    type: string
+    description: Placa do veículo
+  client:
+    type: object
+    description: Dados do cliente
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      phone:
+        type: string
+  name:
+    type: string
+    description: Nome do veículo
+  model:
+    type: string
+    description: Modelo do veículo
+  year:
+    type: integer
+    description: "Ano do modelo do veículo"
+  rating_value:
+    type: string
+    description: Valor da avaliação
+  rating_expense_price:
+    type: float
+    description: Total de despesas da avaliação
+  fipe_price:
+    type: float
+    description: Valor FIPE do veículo
+  created_at:
+    type: timestamp
+    description: Data de criação da avaliação
+  brand:
+    type: string
+    description: Marca do veículo avaliado
+  status:
+    type: string
+    description: "Status do anúncio"
+  published:
+    type: boolean
+    description: Informa se o veículo foi publicado como anúncio na plataforma
+  images:
+    type: object
+    properties:
+      cover:
+        type: string
+        description: Imagem inicial da avaliação
+      gallery:
+        type: array
+        items:
+          type: object
+          properties:
+            filename:
+              type: string
+            photo_order:
+              type: integer
+            url:
+              type: string
+  photos:
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: integer
+        filename:
+          type: string
+        photo_order:
+          type: integer
+          nullable: true

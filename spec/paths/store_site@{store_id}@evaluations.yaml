@@ -1,0 +1,37 @@
+parameters:
+  - name: store_id
+    in: path
+    description: Código da loja
+    required: true
+    schema:
+      type: integer
+get:
+  tags:
+    - Avaliações
+  summary: Obtém uma lista de avaliações
+  description: Obtém uma lista de avaliações
+  operationId: getEvaluations
+  security:
+    - api_key: [ ]
+  parameters:
+    - name: store_id
+      in: path
+      description: Código da loja
+      required: true
+      schema:
+        type: integer
+  responses:
+    200:
+      description: Anúncio
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                description: Resultado da requisição
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CarEvaluation'
