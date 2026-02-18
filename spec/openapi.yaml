@@ -56,6 +56,8 @@ tags:
     description: Operações referentes ao cadastro e edição de anúncios
   - name: Site
     description: Endpoints do site de cliente (que não usam token de autenticação)
+  - name: Avaliação
+    description: Endpoints do avaliador de veículos Repasse
 servers:
   - url: 'https://dev.aplicativorepasse.com.br/api'
   - url: 'https://srv.aplicativorepasse.com.br/api'
