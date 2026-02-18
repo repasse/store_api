@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 1.1.1
+  version: 1.1.2
   title: Integrador Repasse
   termsOfService: 'https://repasses.com.br/terms/'
   contact:
@@ -26,7 +26,7 @@ info:
     produção (apenas para clientes homologados está em
     https://srv.aplicativorepasse.com.br)
 
-    Para obter uma credencial de testes e de produção contate o departamento comercial.
+    Para obter uma credencial de testes e de produção contate o nosso departamento comercial.
 
     ## Autenticação:
 
